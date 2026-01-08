@@ -1,0 +1,210 @@
+.hero-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Matrix/Tech Background */
+.matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: matrixScroll 20s linear infinite;
+}
+
+@keyframes matrixScroll {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+.hero-content {
+    max-width: 800px;
+    z-index: 2;
+}
+
+/* Bug Coding Scene with Animated Code */
+.bug-coding-scene {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bug-typing {
+    width: 250px;
+    height: auto;
+    animation: bugBob 3s ease-in-out infinite;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes bugBob {
+    0%, 100% {
+        transform: translateY(0px) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+/* Animated Code Particles */
+.code-particle {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: floatCode 4s ease-in-out infinite;
+    opacity: 0;
+    z-index: 1;
+}
+
+@keyframes floatCode {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(0) scale(0.9);
+    }
+    20%, 80% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1);
+    }
+}
+
+/* Hero Text */
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    animation: fadeInUp 1s ease-out;
+}
+
+.highlight {
+    background: linear-gradient(120deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin: 0 0 1.5rem 0;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0 0 2rem 0;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 600;
+}
+
+.social-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.social-links a:hover {
+    opacity: 1;
+}
+
+.social-links a:hover::after {
+    width: 100%;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .bug-coding-scene {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .bug-typing {
+        width: 180px;
+    }
+    
+    .code-particle {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .social-links {
+        flex-wrap: wrap;
+    }
+}

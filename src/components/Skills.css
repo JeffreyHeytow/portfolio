@@ -1,0 +1,119 @@
+.skills {
+    width: 100%;
+    height: 100vh;
+    padding: 3rem 2rem;
+    background: white;
+    overflow-y: auto;
+}
+
+.skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skills .section-title {
+    font-size: 2.5rem;
+    color: #667eea;
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+.skills .section-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0 0 3rem 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.skill-category {
+    background: #f8f9ff;
+    padding: 2rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    border-color: #667eea;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+}
+
+.skill-category h3 {
+    color: #667eea;
+    font-size: 1.3rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.skill-tag {
+    background: white;
+    color: #555;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: scale(1.05);
+}
+
+.experience-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .experience-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+}
