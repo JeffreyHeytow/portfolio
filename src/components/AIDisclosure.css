@@ -1,0 +1,100 @@
+.ai-page {
+    width: 100%;
+    height: 100vh;
+    padding: 2rem;
+    background: var(--background);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 2rem;
+    color: var(--joker-green);
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 0 0 2rem 0;
+}
+
+.ai-content {
+    background: var(--surface);
+    border: 4px solid var(--joker-green);
+    padding: 2rem 3rem;
+}
+
+.ai-content h3 {
+    color: var(--joker-green);
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+}
+
+.ai-content h4 {
+    color: var(--joker-accent);
+    font-size: 0.75rem;
+    margin: 1.5rem 0 0.8rem 0;
+    text-transform: uppercase;
+}
+
+.ai-content p {
+    margin: 0.8rem 0;
+    line-height: 1.8;
+}
+
+.ai-example {
+    background: var(--surface-light);
+    border: 2px solid var(--joker-purple);
+    padding: 1.2rem;
+    margin: 1rem 0;
+}
+
+.ai-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.8rem 0;
+}
+
+.ai-content li {
+    margin: 0.6rem 0;
+    line-height: 1.6;
+}
+
+.ai-quote {
+    background: var(--joker-purple-dark);
+    border: 3px solid var(--joker-green);
+    padding: 1.2rem;
+    margin: 1.5rem 0 0 0;
+    text-align: center;
+}
+
+.ai-quote p {
+    color: var(--joker-green);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .ai-content {
+        padding: 1.5rem;
+    }
+    
+    .ai-content h3 {
+        font-size: 0.75rem;
+    }
+    
+    .ai-content h4 {
+        font-size: 0.65rem;
+    }
+}

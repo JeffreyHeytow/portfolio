@@ -1,0 +1,135 @@
+.projects-page {
+    width: 100%;
+    height: 100vh;
+    padding: 3rem 2rem;
+    background: var(--background);
+    overflow-y: auto;
+}
+
+.projects-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 2rem;
+    color: var(--joker-green);
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 0 0 3rem 0;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--surface);
+    border: 4px solid var(--joker-green);
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.project-card.coming-soon {
+    border-color: var(--joker-purple);
+    opacity: 0.8;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--joker-purple);
+    padding-bottom: 1rem;
+}
+
+.project-header h3 {
+    color: var(--joker-green);
+    font-size: 1rem;
+}
+
+.status-badge {
+    background: var(--joker-accent);
+    color: var(--joker-black);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.6rem;
+    border: 2px solid var(--joker-black);
+}
+
+.status-badge.soon {
+    background: var(--joker-purple);
+    color: var(--joker-green);
+    border-color: var(--joker-green);
+}
+
+.project-description {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-badge {
+    background: var(--joker-purple);
+    color: var(--joker-green);
+    border: 2px solid var(--joker-green);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.6rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Inverted button colors for prominence */
+.project-links .nes-button {
+    font-size: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--joker-green);
+    color: var(--joker-black);
+    border: 3px solid var(--joker-black);
+    box-shadow: 3px 3px 0 var(--joker-green-dark);
+}
+
+.project-links .nes-button:hover {
+    background: var(--joker-green-dark);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--joker-green-dark);
+}
+
+.project-links .nes-button:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-header h3 {
+        font-size: 0.85rem;
+    }
+}

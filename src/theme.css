@@ -1,0 +1,171 @@
+/* Retro NES Theme with Joker Colors */
+
+:root {
+    /* Joker Color Palette */
+    --joker-purple: #6C1B8E;
+    --joker-purple-dark: #4A0E5F;
+    --joker-purple-light: #8B2BAD;
+    --joker-green: #00FF41;
+    --joker-green-dark: #00CC33;
+    --joker-black: #0A0A0A;
+    --joker-dark-gray: #1A1A1A;
+    --joker-dark-purple: #2A1A3A;
+    --joker-white: #F0F0F0;
+    --joker-accent: #FFD700;
+    
+    /* NES Palette Accents */
+    --nes-red: #E52521;
+    --nes-blue: #0080FF;
+    --nes-yellow: #FFFF00;
+    
+    /* Semantic Colors */
+    --primary: var(--joker-purple);
+    --primary-dark: var(--joker-purple-dark);
+    --primary-light: var(--joker-purple-light);
+    --secondary: var(--joker-green);
+    --accent: var(--joker-accent);
+    --background: var(--joker-black);
+    --surface: var(--joker-dark-purple);
+    --surface-light: var(--joker-dark-gray);
+    --text: var(--joker-white);
+    --text-secondary: #B0B0B0;
+    
+    /* Shadows & Effects */
+    --glow-green: 0 0 10px var(--joker-green), 0 0 20px var(--joker-green);
+    --glow-purple: 0 0 10px var(--joker-purple), 0 0 20px var(--joker-purple);
+    --pixel-border: 4px solid var(--joker-green);
+}
+
+/* Ubuntu Font (commented out - uncomment to use) */
+/* @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap'); */
+
+/* Retro Pixel Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Use Press Start 2P for retro, or Ubuntu Mono for readability */
+    font-family: 'Press Start 2P', cursive;
+    /* font-family: 'Ubuntu Mono', monospace; */
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+
+/* Pixel Border Utility */
+.pixel-border {
+    border: 4px solid var(--joker-green);
+    box-shadow: 
+        0 0 0 8px var(--joker-black),
+        0 0 0 12px var(--joker-green);
+}
+
+/* NES Button Style */
+.nes-button {
+    background: var(--joker-purple);
+    color: var(--joker-white);
+    border: 4px solid var(--joker-green);
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 var(--joker-purple-dark);
+}
+
+.nes-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--joker-purple-dark);
+}
+
+.nes-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Scanline Effect */
+.scanlines {
+    position: relative;
+    overflow: hidden;
+}
+
+.scanlines::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Glitch Text Effect */
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 2px var(--joker-green), -2px -2px var(--joker-purple);
+    }
+    25% {
+        text-shadow: -2px 2px var(--joker-green), 2px -2px var(--joker-purple);
+    }
+    50% {
+        text-shadow: 2px -2px var(--joker-green), -2px 2px var(--joker-purple);
+    }
+    75% {
+        text-shadow: -2px -2px var(--joker-green), 2px 2px var(--joker-purple);
+    }
+    100% {
+        text-shadow: 2px 2px var(--joker-green), -2px -2px var(--joker-purple);
+    }
+}
+
+/* Pixel Perfect Text */
+.pixel-text {
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+}
+
+/* 8-bit Container */
+.retro-container {
+    background: var(--surface);
+    border: 4px solid var(--joker-green);
+    padding: 1.5rem;
+    position: relative;
+}
+
+.retro-container::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 4px solid var(--joker-purple);
+    pointer-events: none;
+}
+
+/* Smaller text utility */
+.text-small {
+    font-size: 0.65rem;
+    line-height: 1.6;
+}
+
