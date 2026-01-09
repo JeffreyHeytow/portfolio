@@ -17,7 +17,7 @@ export default function Contact() {
                     >
                         <div className="contact-icon">📧</div>
                         <h3>EMAIL ME</h3>
-                        <p className="text-small">Send a message</p>
+                        <p className="text-small">heytow1@gmail.com</p>
                     </button>
                     
                     <a 

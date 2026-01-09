@@ -12,7 +12,6 @@
 .book-container {
     max-width: 1000px;
     width: 100%;
-    margin: 0 auto;
 }
 
 .book-content {
@@ -115,7 +114,14 @@
     margin-top: 1.5rem;
 }
 
-@media (max-width: 768px) {
+/* Remove media query snapping */
+@media (max-width: 900px) {
+    .book-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
     .book-content {
         padding: 1.5rem;
     }
@@ -129,20 +135,10 @@
     }
     
     .book-features {
-        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     
     .feature-icon {
         font-size: 1.5rem;
-    }
-    
-    .stat-row {
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-    
-    .stat-value {
-        text-align: center;
     }
 }

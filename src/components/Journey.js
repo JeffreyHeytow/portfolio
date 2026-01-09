@@ -1,132 +1,120 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Journey.css';
 
 export default function Journey() {
-    const [currentLevel, setCurrentLevel] = useState(0);
+    const [jesterPosition, setJesterPosition] = useState(0);
+    const [visibleLevels, setVisibleLevels] = useState([0]);
+    const [facingLeft, setFacingLeft] = useState(false);
+    const [isPaused, setIsPaused] = useState(false);
 
     const levels = [
         {
-            title: "LEVEL 1: THE SOUND WARRIOR",
+            title: "LEVEL 1",
+            subtitle: "THE SOUND WARRIOR",
             period: "20 YEARS",
             icon: "♫",
-            story: [
-                "In Chicago's underground, a young hero",
-                "mastered the ancient art of SOUND.",
-                "",
-                "Club DJ, Party DJ, Master of Ceremonies—",
-                "commanding crowds with epic beats.",
-                "",
-                "Even touring Willie Nelson's legendary bus,",
-                "hosting events as the ultimate MC.",
-                "",
-                "From turntables to tour buses,",
-                "RHYTHM IS POWER."
-            ]
+            description: "Mastered Chicago's underground music scene as DJ, MC, and voiceover artist"
         },
         {
-            title: "LEVEL 2: THE TRANSFORMATION",
+            title: "LEVEL 2",
+            subtitle: "THE TRANSFORMATION",
             period: "CAREER PIVOT",
             icon: "▲",
-            story: [
-                "The hero sensed a greater calling...",
-                "",
-                "He entered DePaul University's halls",
-                "of Computer Science.",
-                "",
-                "Trading vinyl for variables,",
-                "beats for bytes.",
-                "",
-                "Master's degree obtained.",
-                "",
-                "NEW CLASS: SOFTWARE ENGINEER"
-            ]
+            description: "Earned Master's in Computer Science from DePaul University"
         },
         {
-            title: "LEVEL 3: THE CODE CRUSADES",
+            title: "LEVEL 3",
+            subtitle: "CODE CRUSADES",
             period: "10+ YEARS",
             icon: "◆",
-            story: [
-                "Armed with Java, Python, and resolve,",
-                "the hero joined CRITICAL MISSIONS:",
-                "",
-                "→ Defense systems protected",
-                "→ Vulnerabilities vanquished",
-                "→ Frameworks architected from zero",
-                "→ Teams mentored",
-                "",
-                "Three kingdoms served successfully.",
-                "",
-                "ACHIEVEMENT: Senior Engineer"
-            ]
+            description: "Built defense systems, frameworks, and led engineering teams"
         },
         {
-            title: "LEVEL 4: THE STORY SCRIBE",
+            title: "LEVEL 4",
+            subtitle: "STORY SCRIBE",
             period: "2023",
             icon: "▣",
-            story: [
-                "A secret side quest emerged...",
-                "",
-                "The hero became a self-taught",
-                "artist and author.",
-                "",
-                "\"Little Bug, Big Bug!\" was born—",
-                "a tale of fathers and sons.",
-                "",
-                "Written. Illustrated. Published.",
-                "",
-                "RARE ACHIEVEMENT UNLOCKED"
-            ]
+            description: "Published \"Little Bug, Big Bug!\" as self-taught author & illustrator"
         }
     ];
 
-    const nextLevel = () => {
-        setCurrentLevel((prev) => (prev + 1) % levels.length);
-    };
+    useEffect(() => {
+        // Pause 3s at each level, 5s at end
+        const pauseTime = isPaused ? (jesterPosition === levels.length ? 5000 : 3000) : 0;
+        
+        const timeout = setTimeout(() => {
+            setIsPaused(false);
+            
+            setJesterPosition(prev => {
+                // Moving forward
+                if (!facingLeft && prev < levels.length) {
+                    setVisibleLevels(Array.from({ length: prev + 1 }, (_, i) => i));
+                    setIsPaused(true);
+                    return prev + 1;
+                }
+                
+                // At end, pause then turn around
+                if (!facingLeft && prev === levels.length) {
+                    setFacingLeft(true);
+                    return prev;
+                }
+                
+                // Moving backward
+                if (facingLeft && prev > 0) {
+                    setIsPaused(true);
+                    return prev - 1;
+                }
+                
+                // Back at start, turn around and restart
+                if (facingLeft && prev === 0) {
+                    setFacingLeft(false);
+                    setVisibleLevels([0]);
+                    setIsPaused(true);
+                    return 0;
+                }
+                
+                return prev;
+            });
+        }, pauseTime || 100);
 
-    const prevLevel = () => {
-        setCurrentLevel((prev) => (prev - 1 + levels.length) % levels.length);
-    };
-
-    const level = levels[currentLevel];
+        return () => clearTimeout(timeout);
+    }, [jesterPosition, facingLeft, isPaused]);
 
     return (
         <section className="journey-page pixel-text">
             <div className="journey-container">
                 <h2 className="page-title glitch-text">THE HERO'S JOURNEY</h2>
                 <p className="page-subtitle text-small">
-                    ▶ Four Legendary Quests ◀
+                    ▶ Watch the Legend Unfold ◀
                 </p>
 
-                <div className="level-carousel">
-                    <button onClick={prevLevel} className="nav-arrow left">◀</button>
+                <div className="timeline-path">
+                    {levels.map((level, index) => (
+                        <div 
+                            key={index}
+                            className={`timeline-level ${visibleLevels.includes(index) ? 'visible' : ''}`}
+                        >
+                            <div className="level-marker">
+                                <span className="level-icon">{level.icon}</span>
+                            </div>
+                            <div className="level-content retro-container">
+                                <h3>{level.title}</h3>
+                                <h4>{level.subtitle}</h4>
+                                <span className="level-period pixel-badge">{level.period}</span>
+                                <p className="text-small">{level.description}</p>
+                            </div>
+                        </div>
+                    ))}
                     
-                    <div className="level-card retro-container">
-                        <div className="level-header">
-                            <span className="level-icon">{level.icon}</span>
-                            <h3 className="level-title">{level.title}</h3>
-                            <span className="level-period pixel-badge">{level.period}</span>
-                        </div>
-                        
-                        <div className="level-story text-small">
-                            {level.story.map((line, index) => (
-                                <p key={index} className={line === '' ? 'spacer' : ''}>
-                                    {line}
-                                </p>
-                            ))}
-                        </div>
-                        
-                        <div className="level-indicator">
-                            {levels.map((_, index) => (
-                                <span 
-                                    key={index} 
-                                    className={`dot ${index === currentLevel ? 'active' : ''}`}
-                                    onClick={() => setCurrentLevel(index)}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                    
-                    <button onClick={nextLevel} className="nav-arrow right">▶</button>
+                    {/* Jester flips based on direction */}
+                    <img 
+                        src="/images/jester.png" 
+                        alt="Hero" 
+                        className={`jester-sprite ${facingLeft ? 'facing-left' : ''}`}
+                        style={{
+                            left: `calc(${jesterPosition * 25}% - 35px)`
+                        }}
+                    />
                 </div>
 
                 <div className="journey-quote retro-container text-small">

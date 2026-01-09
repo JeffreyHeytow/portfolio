@@ -27,6 +27,7 @@
         );
     opacity: 0.5;
     animation: matrixScroll 20s linear infinite;
+    z-index: 0;
 }
 
 @keyframes matrixScroll {
@@ -38,10 +39,13 @@
     max-width: 1000px;
     z-index: 2;
     text-align: center;
+    position: relative;
 }
 
 .bug-center {
     margin-bottom: 2rem;
+    position: relative;
+    z-index: 3;
 }
 
 .bug-typing {
@@ -61,10 +65,10 @@
     }
 }
 
-/* Code Particles - Float UP from name area */
+/* Code Particles - BEHIND bug (z-index 1) */
 .code-particle {
     position: absolute;
-    bottom: 35%; /* Start from name height */
+    bottom: 40%;
     background: rgba(10, 10, 10, 0.95);
     border: 2px solid var(--joker-green);
     padding: 0.5rem 1rem;
@@ -73,33 +77,35 @@
     box-shadow: 
         0 0 10px var(--joker-green),
         inset 0 0 10px rgba(0, 255, 65, 0.1);
-    animation: floatUpFromName 6s ease-out forwards;
+    animation: floatToTop 8s ease-out forwards;
     z-index: 1;
     white-space: nowrap;
     pointer-events: none;
 }
 
-@keyframes floatUpFromName {
+@keyframes floatToTop {
     0% {
         opacity: 0;
         transform: translateY(0) scale(0.8);
     }
     10% {
         opacity: 1;
-        transform: translateY(-20px) scale(1);
+        transform: translateY(-30px) scale(1);
     }
     90% {
         opacity: 0.8;
-        transform: translateY(-400px) scale(0.9);
+        transform: translateY(-500px) scale(0.9);
     }
     100% {
         opacity: 0;
-        transform: translateY(-500px) scale(0.8);
+        transform: translateY(-600px) scale(0.7);
     }
 }
 
 .title-block {
     margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-title {
@@ -132,20 +138,24 @@
 .subtitle-container {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
+    min-height: 2rem;
 }
 
-/* Synchronized Blinking Badge with Triangle */
-.blink-badge {
+/* Blinking Badge - Like "PRESS START" flashing */
+.rotating-badge {
     color: var(--joker-green);
     font-size: 0.7rem;
-    animation: blinkSync 1.5s infinite;
+    animation: blinkFlash 1.5s infinite;
 }
 
-@keyframes blinkSync {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+@keyframes blinkFlash {
+    0%, 49% { 
+        opacity: 1;
+        text-shadow: 0 0 10px var(--joker-green);
+    }
+    50%, 100% { 
+        opacity: 0;
+    }
 }
 
 .hero-story {
@@ -156,6 +166,8 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .social-links-retro {
@@ -163,6 +175,8 @@
     gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
 }
 
 .social-links-retro .nes-button {
@@ -189,11 +203,7 @@
         line-height: 1.8;
     }
     
-    .blink-badge {
+    .rotating-badge {
         font-size: 0.6rem;
-    }
-    
-    .subtitle-container {
-        gap: 1rem;
     }
 }

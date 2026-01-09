@@ -26,19 +26,19 @@ export default function Book() {
                     
                     <div className="book-features">
                         <div className="feature">
-                            <span className="feature-icon">👨‍👦</span>
+                            <span className="feature-icon">♥</span>
                             <span className="text-small">Father-Son Adventure</span>
                         </div>
                         <div className="feature">
-                            <span className="feature-icon">🎨</span>
+                            <span className="feature-icon">◆</span>
                             <span className="text-small">Self-Illustrated</span>
                         </div>
                         <div className="feature">
-                            <span className="feature-icon">◆</span>
+                            <span className="feature-icon">♪</span>
                             <span className="text-small">Gentle Rhymes</span>
                         </div>
                         <div className="feature">
-                            <span className="feature-icon">⭐</span>
+                            <span className="feature-icon">★</span>
                             <span className="text-small">Easy-to-Read</span>
                         </div>
                     </div>

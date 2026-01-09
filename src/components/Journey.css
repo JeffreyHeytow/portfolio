@@ -1,7 +1,7 @@
 .journey-page {
     width: 100%;
     height: 100vh;
-    padding: 3rem 2rem;
+    padding: 2rem;
     background: var(--background);
     overflow: hidden;
     display: flex;
@@ -10,7 +10,7 @@
 }
 
 .journey-container {
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
 }
@@ -29,82 +29,66 @@
     margin: 0 0 2rem 0;
 }
 
-.level-carousel {
+/* Timeline Path - Horizontal like Super Mario 3 map */
+.timeline-path {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 0 2rem 80px 2rem;
+    min-height: 400px;
+}
+
+.timeline-level {
+    flex: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
+
+.timeline-level.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.level-marker {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 100px;
+    background: var(--joker-purple);
+    border: 4px solid var(--joker-green);
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.nav-arrow {
-    background: var(--joker-purple);
-    color: var(--joker-green);
-    border: 3px solid var(--joker-green);
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    font-family: 'Press Start 2P', cursive;
-    transition: all 0.1s;
-    box-shadow: 4px 4px 0 var(--joker-purple-dark);
-    flex-shrink: 0;
-}
-
-.nav-arrow:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--joker-purple-dark);
-}
-
-.nav-arrow:active {
-    transform: translate(4px, 4px);
-    box-shadow: none;
-}
-
-.level-card {
-    flex: 1;
-    width: 600px;
-    background: var(--surface);
-    border: 4px solid var(--joker-green);
-    padding: 2rem;
-    height: 420px;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
     position: relative;
-    animation: slideIn 0.3s ease-out;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.level-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--joker-purple);
-    padding-bottom: 1rem;
-    flex-shrink: 0;
 }
 
 .level-icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 0.8rem;
+    font-size: 2rem;
+    color: var(--joker-green);
     filter: drop-shadow(0 0 10px var(--joker-green));
 }
 
-.level-title {
+.level-content {
+    background: var(--surface);
+    border: 3px solid var(--joker-green);
+    padding: 1rem;
+    text-align: center;
+}
+
+.level-content h3 {
+    color: var(--joker-accent);
+    font-size: 0.7rem;
+    margin: 0 0 0.3rem 0;
+}
+
+.level-content h4 {
     color: var(--joker-green);
-    font-size: 0.85rem;
-    margin: 0 0 0.8rem 0;
-    text-transform: uppercase;
+    font-size: 0.65rem;
+    margin: 0 0 0.5rem 0;
 }
 
 .level-period {
@@ -112,62 +96,67 @@
     background: var(--joker-purple);
     color: var(--joker-green);
     border: 2px solid var(--joker-green);
-    padding: 0.3rem 0.8rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.55rem;
+    margin-bottom: 0.5rem;
+}
+
+.level-content p {
+    margin: 0.5rem 0 0 0;
+    line-height: 1.6;
+    color: var(--text);
     font-size: 0.6rem;
 }
 
-.level-story {
-    flex: 1;
-    line-height: 1.8;
-    color: var(--text);
-    margin-bottom: 1rem;
-    overflow: hidden;
+/* Jester Walking on Path */
+.jester-sprite {
+    position: absolute;
+    bottom: 10px;
+    width: 70px;
+    height: auto;
+    transition: left 3s ease-in-out, transform 0.5s ease;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    z-index: 10;
 }
 
-.level-story p {
-    margin: 0.3rem 0;
+/* Flip when facing left */
+.jester-sprite.facing-left {
+    transform: scaleX(-1);
 }
 
-.level-story p.spacer {
-    margin: 0.6rem 0;
-}
-
-.level-indicator {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-shrink: 0;
-}
-
-.dot {
-    width: 16px;
-    height: 16px;
-    background: var(--joker-purple);
-    border: 2px solid var(--joker-green);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.dot.active {
-    background: var(--joker-green);
-    box-shadow: 0 0 10px var(--joker-green);
-}
-
-.dot:hover {
-    transform: scale(1.2);
+/* Road/Path beneath jester */
+.timeline-path::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--joker-purple) 0px,
+        var(--joker-purple) 20px,
+        var(--joker-purple-dark) 20px,
+        var(--joker-purple-dark) 40px
+    );
+    border-top: 4px solid var(--joker-green);
+    border-bottom: 4px solid var(--joker-green);
+    z-index: 5;
 }
 
 .journey-quote {
     background: var(--surface);
     border: 3px solid var(--joker-purple);
-    padding: 1.5rem;
+    padding: 1.2rem;
     text-align: center;
 }
 
 .journey-quote p {
-    line-height: 2;
+    line-height: 1.8;
     color: var(--joker-green);
     font-style: italic;
+    font-size: 0.65rem;
 }
 
 @media (max-width: 768px) {
@@ -175,27 +164,36 @@
         font-size: 1.2rem;
     }
     
-    .level-carousel {
-        gap: 1rem;
+    .timeline-path {
+        padding: 0 1rem 60px 1rem;
+        min-height: 350px;
     }
     
-    .nav-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
+    .level-marker {
+        max-width: 70px;
     }
     
-    .level-card {
-        width: 100%;
-        padding: 1.5rem;
-        height: 380px;
+    .level-icon {
+        font-size: 1.5rem;
     }
     
-    .level-title {
-        font-size: 0.7rem;
+    .jester-sprite {
+        width: 50px;
+    }
+    
+    .level-content h3 {
+        font-size: 0.6rem;
+    }
+    
+    .level-content h4 {
+        font-size: 0.55rem;
+    }
+    
+    .level-content p {
+        font-size: 0.55rem;
     }
     
     .journey-quote p {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
 }

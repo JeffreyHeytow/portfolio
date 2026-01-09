@@ -3,45 +3,53 @@ import './Hero.css';
 
 export default function Hero() {
     const [codeSnippets, setCodeSnippets] = useState([]);
+    const [currentBadge, setCurrentBadge] = useState(0);
 
     const allCodeSnippets = [
         'const hero = "Jeff";',
-        'function conquer() {',
-        'return <Adventure />;',
+        'function conquer()',
         'let destiny = true;',
-        'console.log("🎮");',
-        '} // Quest complete',
+        '} // Quest done',
         'import { Courage }',
-        'class LegendBuilder {',
-        'async beginJourney()',
-        'const skills = [];',
-        'while(learning) {',
-        'skills.push(power);',
-        '}',
-        'export default Hero;',
-        'if (challenge) solve();',
-        '// Level Up! 🚀'
+        'class Legend {',
+        'async begin()',
+        'export Champion;'
     ];
+
+    const badges = [
+        'Defender of Code',
+        'Teller of Tales',
+        'Beat Wizard'
+    ];
+
+    useEffect(() => {
+        // Rotate badges every 1.5 seconds
+        const badgeInterval = setInterval(() => {
+            setCurrentBadge(prev => (prev + 1) % badges.length);
+        }, 1500);
+
+        return () => clearInterval(badgeInterval);
+    }, []);
 
     useEffect(() => {
         const createSnippet = () => {
             return {
                 code: allCodeSnippets[Math.floor(Math.random() * allCodeSnippets.length)],
-                left: `${20 + Math.random() * 60}%`, // Centered around name area
+                left: `${20 + Math.random() * 60}%`,
                 id: Date.now() + Math.random()
             };
         };
 
-        // Initial snippets
-        setCodeSnippets([createSnippet(), createSnippet(), createSnippet()]);
+        // Start with 2 snippets
+        setCodeSnippets([createSnippet(), createSnippet()]);
 
-        // Add new snippet every 2 seconds
+        // Add new snippet every 5 seconds (drastically reduced)
         const interval = setInterval(() => {
             setCodeSnippets(prev => {
-                const newSnippets = [...prev, createSnippet()].slice(-5); // Keep max 5
+                const newSnippets = [...prev, createSnippet()].slice(-3); // Keep max 3
                 return newSnippets;
             });
-        }, 2000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);
@@ -50,20 +58,20 @@ export default function Hero() {
         <section className="hero-page pixel-text">
             <div className="matrix-rain"></div>
             
-            {/* Code snippets floating up from name */}
-            {codeSnippets.map((snippet) => (
-                <div 
-                    key={snippet.id}
-                    className="code-particle retro-container"
-                    style={{
-                        left: snippet.left
-                    }}
-                >
-                    {snippet.code}
-                </div>
-            ))}
-            
             <div className="hero-content">
+                {/* Code snippets inside hero-content only */}
+                {codeSnippets.map((snippet) => (
+                    <div 
+                        key={snippet.id}
+                        className="code-particle retro-container"
+                        style={{
+                            left: snippet.left
+                        }}
+                    >
+                        {snippet.code}
+                    </div>
+                ))}
+                
                 <div className="bug-center">
                     <img src="/images/bug-jug.png" alt="The Legendary Coder" className="bug-typing" />
                 </div>
@@ -73,9 +81,7 @@ export default function Hero() {
                         <span className="glitch-text">JEFF HEYTOW</span>
                     </h1>
                     <div className="subtitle-container">
-                        <span className="blink-badge">▶ Defender of Code</span>
-                        <span className="blink-badge">▶ Teller of Tales</span>
-                        <span className="blink-badge">▶ Beat Wizard</span>
+                        <span className="rotating-badge">▶ {badges[currentBadge]}</span>
                     </div>
                 </div>
                 

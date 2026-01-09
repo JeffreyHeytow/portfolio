@@ -3,7 +3,6 @@ import './SideNav.css';
 
 export default function SideNav({ currentPage, setCurrentPage }) {
     const navItems = [
-        { id: 'home', label: 'Home', icon: '█' },
         { id: 'projects', label: 'Projects', icon: '▲' },
         { id: 'journey', label: 'Journey', icon: '♪' },
         { id: 'experience', label: 'XP', icon: '⚔' },
@@ -15,7 +14,7 @@ export default function SideNav({ currentPage, setCurrentPage }) {
 
     return (
         <nav className="side-nav pixel-text">
-            <div className="nav-logo">
+            <div className="nav-logo" onClick={() => setCurrentPage('home')} style={{cursor: 'pointer'}}>
                 <span className="logo-text">JH</span>
             </div>
             

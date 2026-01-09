@@ -47,7 +47,7 @@ export default function Skills() {
                 </div>
 
                 <div className="education retro-container">
-                    <h3>🎓 EDUCATION</h3>
+                    <h3>▲ EDUCATION</h3>
                     <div className="edu-item">
                         <span className="edu-degree">Master of Science</span>
                         <span className="text-small">Computer Science & Game Development</span>
