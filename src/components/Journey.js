@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './Journey.css';
 
 export default function Journey() {
-    const [jesterPosition, setJesterPosition] = useState(0);
-    const [visibleLevels, setVisibleLevels] = useState([0]);
+    const [position, setPosition] = useState(0);
     const [facingLeft, setFacingLeft] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-
+    const [justMoved, setJustMoved] = useState(false);
+    
     const levels = [
         {
             title: "LEVEL 1",
@@ -39,46 +38,42 @@ export default function Journey() {
     ];
 
     useEffect(() => {
-        // Pause 3s at each level, 5s at end
-        const pauseTime = isPaused ? (jesterPosition === levels.length ? 5000 : 3000) : 0;
+        const delay = justMoved ? 500 : 2000; // 0.5s pause after moving, 2s to move
         
         const timeout = setTimeout(() => {
-            setIsPaused(false);
-            
-            setJesterPosition(prev => {
-                // Moving forward
-                if (!facingLeft && prev < levels.length) {
-                    setVisibleLevels(Array.from({ length: prev + 1 }, (_, i) => i));
-                    setIsPaused(true);
-                    return prev + 1;
-                }
-                
-                // At end, pause then turn around
-                if (!facingLeft && prev === levels.length) {
-                    setFacingLeft(true);
-                    return prev;
-                }
-                
-                // Moving backward
-                if (facingLeft && prev > 0) {
-                    setIsPaused(true);
-                    return prev - 1;
-                }
-                
-                // Back at start, turn around and restart
-                if (facingLeft && prev === 0) {
+            if (justMoved) {
+                // Just paused, now ready to move again
+                setJustMoved(false);
+            } else {
+                // Move to next position
+                setPosition(prev => {
+                    // Moving forward
+                    if (!facingLeft) {
+                        if (prev < 4) {
+                            setJustMoved(true);
+                            return prev + 1;
+                        }
+                        // At end, turn around
+                        setFacingLeft(true);
+                        setJustMoved(true);
+                        return 4;
+                    }
+                    
+                    // Moving backward
+                    if (prev > 0) {
+                        setJustMoved(true);
+                        return prev - 1;
+                    }
+                    // At start, turn around
                     setFacingLeft(false);
-                    setVisibleLevels([0]);
-                    setIsPaused(true);
+                    setJustMoved(true);
                     return 0;
-                }
-                
-                return prev;
-            });
-        }, pauseTime || 100);
+                });
+            }
+        }, delay);
 
         return () => clearTimeout(timeout);
-    }, [jesterPosition, facingLeft, isPaused]);
+    }, [position, facingLeft, justMoved]);
 
     return (
         <section className="journey-page pixel-text">
@@ -92,7 +87,7 @@ export default function Journey() {
                     {levels.map((level, index) => (
                         <div 
                             key={index}
-                            className={`timeline-level ${visibleLevels.includes(index) ? 'visible' : ''}`}
+                            className="timeline-level visible"
                         >
                             <div className="level-marker">
                                 <span className="level-icon">{level.icon}</span>
@@ -106,13 +101,13 @@ export default function Journey() {
                         </div>
                     ))}
                     
-                    {/* Jester flips based on direction */}
+                    {/* Jester walks and pauses between cards */}
                     <img 
                         src="/images/jester.png" 
                         alt="Hero" 
                         className={`jester-sprite ${facingLeft ? 'facing-left' : ''}`}
                         style={{
-                            left: `calc(${jesterPosition * 25}% - 35px)`
+                            left: `calc(${position * 25}% - 35px)`
                         }}
                     />
                 </div>

@@ -43,7 +43,7 @@
 }
 
 .bug-center {
-    margin-bottom: 2rem;
+    margin-bottom: 15px;
     position: relative;
     z-index: 3;
 }
@@ -65,10 +65,12 @@
     }
 }
 
-/* Code Particles - BEHIND bug (z-index 1) */
+/* Code Particles - Spawn in center, float up with random path */
 .code-particle {
     position: absolute;
-    bottom: 40%;
+    left: 50%;
+    top: 55%; /* Spawn between bug and name */
+    transform: translateX(-50%);
     background: rgba(10, 10, 10, 0.95);
     border: 2px solid var(--joker-green);
     padding: 0.5rem 1rem;
@@ -77,28 +79,32 @@
     box-shadow: 
         0 0 10px var(--joker-green),
         inset 0 0 10px rgba(0, 255, 65, 0.1);
-    animation: floatToTop 8s ease-out forwards;
+    animation: floatUpRandom 8s ease-out forwards;
     z-index: 1;
     white-space: nowrap;
     pointer-events: none;
 }
 
-@keyframes floatToTop {
+@keyframes floatUpRandom {
     0% {
         opacity: 0;
-        transform: translateY(0) scale(0.8);
+        transform: translateX(-50%) translateY(0) scale(0.8);
     }
     10% {
         opacity: 1;
-        transform: translateY(-30px) scale(1);
+        transform: translateX(calc(-50% + var(--horizontal-drift) * 0.2)) translateY(-50px) scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateX(calc(-50% + var(--horizontal-drift) * 0.6)) translateY(-300px) scale(1);
     }
     90% {
-        opacity: 0.8;
-        transform: translateY(-500px) scale(0.9);
+        opacity: 0.5;
+        transform: translateX(calc(-50% + var(--horizontal-drift))) translateY(-500px) scale(0.9);
     }
     100% {
         opacity: 0;
-        transform: translateY(-600px) scale(0.7);
+        transform: translateX(calc(-50% + var(--horizontal-drift))) translateY(-600px) scale(0.7);
     }
 }
 
@@ -110,7 +116,7 @@
 
 .hero-title {
     font-size: 2.5rem;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 0.8rem 0;
     text-transform: uppercase;
 }
 
@@ -141,21 +147,20 @@
     min-height: 2rem;
 }
 
-/* Blinking Badge - Like "PRESS START" flashing */
+/* Badge flash - instant transition */
 .rotating-badge {
     color: var(--joker-green);
     font-size: 0.7rem;
-    animation: blinkFlash 1.5s infinite;
+    text-shadow: 0 0 10px var(--joker-green);
+    transition: none;
 }
 
-@keyframes blinkFlash {
-    0%, 49% { 
-        opacity: 1;
-        text-shadow: 0 0 10px var(--joker-green);
-    }
-    50%, 100% { 
-        opacity: 0;
-    }
+.rotating-badge.visible {
+    opacity: 1;
+}
+
+.rotating-badge.hidden {
+    opacity: 0;
 }
 
 .hero-story {

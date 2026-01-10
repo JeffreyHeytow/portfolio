@@ -26,7 +26,7 @@
 .page-subtitle {
     text-align: center;
     color: var(--text-secondary);
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 2rem 0;
 }
 
 .ai-content {
@@ -39,44 +39,63 @@
     color: var(--joker-green);
     font-size: 0.85rem;
     margin: 0 0 1rem 0;
+    text-align: center;
     text-transform: uppercase;
 }
 
-.ai-content h4 {
+.ai-content > p {
+    margin: 1rem 0 2rem 0;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.ai-box {
+    background: var(--surface-light);
+    border: 3px solid var(--joker-purple);
+    padding: 1.5rem;
+}
+
+.ai-box h4 {
     color: var(--joker-accent);
     font-size: 0.7rem;
-    margin: 1.2rem 0 0.8rem 0;
+    margin: 0 0 1rem 0;
     text-transform: uppercase;
+    text-align: center;
 }
 
-.ai-content p {
-    margin: 0.8rem 0;
-    line-height: 1.8;
-}
-
-.ai-example {
-    background: var(--surface-light);
-    border: 2px solid var(--joker-purple);
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.ai-content ul {
+.ai-box ul {
     list-style: none;
     padding: 0;
-    margin: 0.6rem 0;
+    margin: 0;
 }
 
-.ai-content li {
-    margin: 0.5rem 0;
+.ai-box li {
+    margin: 0.6rem 0;
     line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.ai-box li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: var(--joker-green);
+    font-size: 0.5rem;
 }
 
 .ai-quote {
     background: var(--joker-purple-dark);
     border: 3px solid var(--joker-green);
-    padding: 1rem;
-    margin: 1.2rem 0 0 0;
+    padding: 1.5rem;
+    margin: 2rem 0 0 0;
     text-align: center;
 }
 
@@ -94,7 +113,7 @@
         font-size: 0.75rem;
     }
     
-    .ai-content h4 {
-        font-size: 0.65rem;
+    .ai-grid {
+        grid-template-columns: 1fr;
     }
 }

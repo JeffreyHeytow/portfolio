@@ -2,6 +2,10 @@ import React from 'react';
 import './Contact.css';
 
 export default function Contact() {
+    const handleEmail = () => {
+        window.location.href = 'mailto:heytow1@gmail.com';
+    };
+
     return (
         <section className="contact-page pixel-text">
             <div className="contact-container">
@@ -11,14 +15,17 @@ export default function Contact() {
                 </p>
                 
                 <div className="contact-methods">
-                    <button 
-                        onClick={() => window.location.href = 'mailto:heytow1@gmail.com'}
+                    <div 
+                        onClick={handleEmail}
                         className="contact-card nes-button"
+                        style={{cursor: 'pointer'}}
                     >
-                        <div className="contact-icon">📧</div>
-                        <h3>EMAIL ME</h3>
-                        <p className="text-small">heytow1@gmail.com</p>
-                    </button>
+                        <div className="contact-content">
+                            <div className="contact-icon">📧</div>
+                            <h3>EMAIL ME</h3>
+                            <p className="text-small">Get in touch</p>
+                        </div>
+                    </div>
                     
                     <a 
                         href="https://linkedin.com/in/jeffheytow" 
@@ -26,9 +33,11 @@ export default function Contact() {
                         rel="noopener noreferrer"
                         className="contact-card nes-button"
                     >
-                        <div className="contact-icon">💼</div>
-                        <h3>LINKEDIN</h3>
-                        <p className="text-small">Connect professionally</p>
+                        <div className="contact-content">
+                            <div className="contact-icon">💼</div>
+                            <h3>LINKEDIN</h3>
+                            <p className="text-small">Connect professionally</p>
+                        </div>
                     </a>
                     
                     <a 
@@ -37,9 +46,11 @@ export default function Contact() {
                         rel="noopener noreferrer"
                         className="contact-card nes-button"
                     >
-                        <div className="contact-icon">💻</div>
-                        <h3>GITHUB</h3>
-                        <p className="text-small">Check out my code</p>
+                        <div className="contact-content">
+                            <div className="contact-icon">💻</div>
+                            <h3>GITHUB</h3>
+                            <p className="text-small">Check out my code</p>
+                        </div>
                     </a>
                 </div>
                 

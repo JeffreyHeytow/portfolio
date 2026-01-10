@@ -4,6 +4,7 @@ import './Hero.css';
 export default function Hero() {
     const [codeSnippets, setCodeSnippets] = useState([]);
     const [currentBadge, setCurrentBadge] = useState(0);
+    const [isVisible, setIsVisible] = useState(true);
 
     const allCodeSnippets = [
         'const hero = "Jeff";',
@@ -23,30 +24,35 @@ export default function Hero() {
     ];
 
     useEffect(() => {
-        // Rotate badges every 1.5 seconds
-        const badgeInterval = setInterval(() => {
-            setCurrentBadge(prev => (prev + 1) % badges.length);
-        }, 1500);
+        // Alternate: 0.5s visible, 0.5s invisible
+        const interval = setInterval(() => {
+            setIsVisible(prev => {
+                if (!prev) {
+                    // Was invisible, now show and advance badge
+                    setCurrentBadge(c => (c + 1) % badges.length);
+                }
+                return !prev;
+            });
+        }, 500); // Toggle every 0.5s
 
-        return () => clearInterval(badgeInterval);
+        return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
         const createSnippet = () => {
             return {
                 code: allCodeSnippets[Math.floor(Math.random() * allCodeSnippets.length)],
-                left: `${20 + Math.random() * 60}%`,
+                // Random horizontal drift (-20% to +20% from center)
+                horizontalDrift: (Math.random() - 0.5) * 40,
                 id: Date.now() + Math.random()
             };
         };
 
-        // Start with 2 snippets
-        setCodeSnippets([createSnippet(), createSnippet()]);
-
-        // Add new snippet every 5 seconds (drastically reduced)
+        // Create snippet every 0.5s
         const interval = setInterval(() => {
             setCodeSnippets(prev => {
-                const newSnippets = [...prev, createSnippet()].slice(-3); // Keep max 3
+                // Remove old snippets, add new one
+                const newSnippets = [...prev.filter(s => Date.now() - s.id < 8000), createSnippet()];
                 return newSnippets;
             });
         }, 5000);
@@ -59,13 +65,13 @@ export default function Hero() {
             <div className="matrix-rain"></div>
             
             <div className="hero-content">
-                {/* Code snippets inside hero-content only */}
+                {/* Code snippets spawn in center, float up randomly */}
                 {codeSnippets.map((snippet) => (
                     <div 
                         key={snippet.id}
                         className="code-particle retro-container"
                         style={{
-                            left: snippet.left
+                            '--horizontal-drift': `${snippet.horizontalDrift}%`
                         }}
                     >
                         {snippet.code}
@@ -81,7 +87,9 @@ export default function Hero() {
                         <span className="glitch-text">JEFF HEYTOW</span>
                     </h1>
                     <div className="subtitle-container">
-                        <span className="rotating-badge">▶ {badges[currentBadge]}</span>
+                        <span className={`rotating-badge ${isVisible ? 'visible' : 'hidden'}`}>
+                            ▶ {badges[currentBadge]}
+                        </span>
                     </div>
                 </div>
                 
